@@ -1,0 +1,43 @@
+server:
+  port: 80093
+
+spring:
+  resources:
+    static-locations: classpath:/static/
+  application:
+    name: locationpusher
+
+  data:
+    #base_url: http://127.0.0.1:8091
+    base_url: http://131.108.1.58:8091
+    local_url: http://192.168.16.209:${server.port}
+    #aoa_host: http://131.108.4.84:8080/jpe/
+    datasource: http://131.108.4.84:8080/jpe/getTagPos # 数据源地址
+    hardware_datasource: http://131.108.4.84:8080/jpe/getUserData # 硬件信息数据源/jpe/getUserData
+    building_datasource: http://131.108.4.84:8080/jpe/getProjectInfo # 工程信息数据源
+    locator_datasource: http://131.108.4.84:8080/jpe/getStationInfo # 基站信息数据源
+    datatype: 2 # 1.QPE数据 2.JPE数据 4.UWB数据 5.中间层数据
+    reserve_datasource: http://131.108.4.84:8080/jpe/getTagPos # 备用数据源地址
+    reserve_hardware_datasource: http://131.108.4.84:8080/jpe/getUserData # 备用硬件信息数据源
+
+
+logging:
+  config: classpath:logback-spring.xml
+
+mqtt:
+  config:
+    poolSize: 8
+    broker: ws://131.108.1.58:8083/mqtt #本地58
+    #broker: ws://131.108.4.69:8083/mqtt #测试69
+    username: admin
+    password: public
+
+topic:
+  mqtt:
+    pusher: /tagLocation
+    jpePusher: /jpeTagLocation
+
+
+#自定义数据
+custom_data:
+  time_out: 5000  #单位毫秒
